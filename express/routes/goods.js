@@ -56,8 +56,8 @@ router.get("/goods", (req, res) => {
 // localhost:3000/api/goods/:goodsId GET
 router.get("/goods/:goodsId", (req, res) => {
   const { goodsId } = req.params;
-  const detail = goods.filter((goods) => goods.goodsId == goodsId)
-  res.json(detail)
+  const [detail] = goods.filter((goods) => goods.goodsId == Number(goodsId))
+  res.json({ detail })
 });
 
 module.exports = router;
