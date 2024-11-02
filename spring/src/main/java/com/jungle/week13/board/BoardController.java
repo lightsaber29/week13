@@ -41,7 +41,7 @@ public class BoardController {
     }
 
     @DeleteMapping("/board/{id}")
-    public Long deletePost(@PathVariable Long id) {
-        return boardService.deletePost(id);
+    public Long deletePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
+        return boardService.deletePost(id, requestDto);
     }
 }
