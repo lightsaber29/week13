@@ -1,32 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useFormInput } from '../../hooks';
 
 const BoardWrite = () => {
   const navigate = useNavigate();
 
-  const [board, setBoard] = useState({
+  const { values, handleChange, resetForm } = useFormInput({
     postTitle: '',
     postAuthorName: '',
     postContents: '',
     postPwd: '',
   });
 
-  const { postTitle, postAuthorName, postContents, postPwd } = board; //비구조화 할당
-
-  const onChange = (event) => {
-    const { value, name } = event.target; //event.target에서 name과 value만 가져오기
-    setBoard({
-      ...board,
-      [name]: value,
-    });
-  };
+  const { postTitle, postAuthorName, postContents, postPwd } = values; //비구조화 할당
 
   const saveBoard = async () => {
-    console.log("board :: ", board);
-    await axios.post(`/api/board`, board).then((res) => {
+    console.log("board :: ", values);
+    await axios.post(`/api/board`, values).then((res) => {
       console.log("res :: ", res);
       alert('등록되었습니다.');
+      resetForm();
       navigate('/board');
     });
   };
@@ -39,7 +33,7 @@ const BoardWrite = () => {
     <div>
       <div>
         <span>제목</span>: &nbsp;
-        <input type="text" name="postTitle" value={postTitle} onChange={onChange} />
+        <input type="text" name="postTitle" value={postTitle} onChange={handleChange} />
       </div>
       <br />
       <div>
@@ -48,7 +42,7 @@ const BoardWrite = () => {
           type="text"
           name="postAuthorName"
           value={postAuthorName}
-          onChange={onChange}
+          onChange={handleChange}
         />
       </div>
       <br />
@@ -60,7 +54,7 @@ const BoardWrite = () => {
           cols="30"
           rows="10"
           value={postContents}
-          onChange={onChange}
+          onChange={handleChange}
         ></textarea>
       </div>
       <br />
@@ -70,7 +64,7 @@ const BoardWrite = () => {
           type="password"
           name="postPwd"
           value={postPwd}
-          onChange={onChange}
+          onChange={handleChange}
         />
       </div>
       <br />
