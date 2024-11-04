@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Button from './button';
 
 const Board = ({ postId, postTitle, postContents, postAuthorName }) => {
   const navigate = useNavigate();
@@ -48,9 +49,9 @@ const Board = ({ postId, postTitle, postContents, postAuthorName }) => {
         <p>{postContents}</p>
       </div>
       <div>
-        <button onClick={moveToUpdate}>수정</button>
-        <button onClick={deleteBoard}>삭제</button>
-        <button onClick={moveToList}>목록</button>
+        <Button onClick={moveToUpdate} variant="primary" size="small">수정</Button>&nbsp;
+        <Button onClick={deleteBoard} variant="danger" size="small">삭제</Button>&nbsp;
+        <Button onClick={moveToList} variant="secondary" size="small">목록</Button>
       </div>
     </div>
   );

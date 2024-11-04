@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { Link, useNavigate } from 'react-router-dom';
+import Button from '../../components/button';
 
 const BoardList = () => {
   const navigate = useNavigate();
@@ -35,7 +36,13 @@ const BoardList = () => {
         ))}
       </ul>
       <div>
-        <button onClick={moveToWrite}>글쓰기</button>
+        <Button 
+          onClick={moveToWrite}
+          variant="default"
+          size="small"
+        >
+          글쓰기
+        </Button>
       </div>
     </div>
   );
