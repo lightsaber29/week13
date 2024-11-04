@@ -1,8 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useFormInput } from '../../hooks';
 import Button from '../../components/button';
+import { useSelector } from 'react-redux';
 
 const BoardWrite = () => {
   const navigate = useNavigate();
@@ -11,15 +12,25 @@ const BoardWrite = () => {
   const postAuthorNameRef = useRef();
   const postContentsRef = useRef();
   const postPwdRef = useRef();
+  const username = useSelector((state) => state.user.username);
 
-  const { values, handleChange, resetForm } = useFormInput({
+  const { values, handleChange, resetForm, setValues } = useFormInput({
     postTitle: '',
     postAuthorName: '',
     postContents: '',
     postPwd: '',
   });
 
-  const { postTitle, postAuthorName, postContents, postPwd } = values; //비구조화 할당
+  const { postTitle, postAuthorName, postContents, postPwd } = values;
+
+  useEffect(() => {
+    if (username) {
+      setValues((prevValues) => ({
+        ...prevValues,
+        postAuthorName: username,
+      }));
+    }
+  }, [username, setValues]);
 
   const isFormValid = () => {
     return postTitle && postAuthorName && postContents && postPwd;
@@ -61,7 +72,7 @@ const BoardWrite = () => {
     }
     try {
       await axios.post(`/api/board`, values).then((res) => {
-        console.log("res :: ", res);
+        // console.log("res :: ", res);
         alert('등록되었습니다.');
         resetForm();
         navigate('/board');
@@ -98,6 +109,8 @@ const BoardWrite = () => {
           value={postAuthorName}
           onChange={handleChange}
           ref={postAuthorNameRef}
+          readOnly={!!username}
+          disabled={!!username}
         />
       </div>
       <br />

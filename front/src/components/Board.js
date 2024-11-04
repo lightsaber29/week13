@@ -19,7 +19,7 @@ const Board = ({ postId, postTitle, postContents, postAuthorName }) => {
           axios.delete(`/api/board/${postId}`, {
             data: { postPwd: password }
           }).then((res) => {
-            console.log("res :: ", res);
+            // console.log("res :: ", res);
             alert('삭제되었습니다.');
             navigate('/board');
           }).catch((error) => {

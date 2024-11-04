@@ -25,7 +25,7 @@ const Signup = () => {
     e.preventDefault(); // 폼 기본 제출 방지
     try {
       await axios.post(`/api/signup`, values).then((res) => {
-        console.log("res :: ", res);
+        // console.log("res :: ", res);
         alert('회원가입되었습니다. 로그인 해 주세요.');
         resetForm();
         navigate('/login');

@@ -3,8 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useFormInput } from '../../hooks';
 import Button from '../../components/button';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../store/userSlice';
+
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { values, handleChange, resetForm } = useFormInput({
     username: '',
@@ -20,12 +24,25 @@ const Login = () => {
   const login = async (e) => {
     e.preventDefault(); // 폼 기본 제출 방지
     try {
-      await axios.post(`/api/login`, values).then((res) => {
-        console.log("res :: ", res);
+      const res = await axios.post(`/api/login`, values);
+      console.log("res :: ", res);
+
+      const token = res.headers['authorization'];
+      const storeUsername = res.data?.username;
+      const storeRole = res.data?.role;
+
+      if (token && storeUsername) {
+        dispatch(setUser({
+          username: storeUsername,
+          token,
+          role: storeRole,
+        }));
         alert('로그인되었습니다.');
         resetForm();
         navigate('/');
-      });
+      } else {
+        alert('로그인 중 오류가 발생했습니다. 다시 시도 해 주세요.');
+      }
     } catch (error) {
       // 서버에서 전달된 에러 메시지 처리
       const errorMessage = error.response?.data?.message || '로그인 중 오류가 발생했습니다.';

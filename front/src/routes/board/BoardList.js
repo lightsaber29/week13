@@ -12,7 +12,7 @@ const BoardList = () => {
       const res = await axios.get('/api/board');
       setBoardList(res.data);
       
-      console.log("boardList :: ", res.data);
+      // console.log("boardList :: ", res.data);
     } catch (error) {
       console.error("Error fetching board list:", error);
     }

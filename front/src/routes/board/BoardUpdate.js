@@ -57,7 +57,7 @@ const BoardUpdate = () => {
 
   const getBoard = async () => {
     const res = await axios.get(`/api/board/${postId}`);
-    console.log("res :: ", res);
+    // console.log("res :: ", res);
     setValues(res.data);
   }
 
@@ -68,7 +68,7 @@ const BoardUpdate = () => {
     }
     try {
       await axios.put(`/api/board/${postId}`, values).then((res) => {
-        console.log("res :: ", res);
+        // console.log("res :: ", res);
         alert('수정되었습니다.');
         resetForm();
         navigate('/board');
@@ -86,7 +86,7 @@ const BoardUpdate = () => {
   }
 
   useEffect(() => {
-    console.log("postId :: ", postId);
+    // console.log("postId :: ", postId);
     getBoard();
   }, []);
 

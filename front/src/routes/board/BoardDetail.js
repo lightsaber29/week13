@@ -9,7 +9,7 @@ const BoardDetail = () => {
   const [loading, setLoading] = useState(true);
   const getBoard = async () => {
     const res = await axios.get(`/api/board/${postId}`);
-    console.log("res :: ", res);
+    // console.log("res :: ", res);
     setBoard(res.data);
     setLoading(false);
   }
