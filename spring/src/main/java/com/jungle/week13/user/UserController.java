@@ -5,6 +5,7 @@ import com.jungle.week13.user.dto.SignupRequestDto;
 import com.jungle.week13.user.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,15 +18,15 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public String signup(@RequestBody SignupRequestDto signupRequestDto) {
+    public ResponseEntity<?> signup(@RequestBody SignupRequestDto signupRequestDto) {
         userService.signup(signupRequestDto);
-        return "success";
+        return ResponseEntity.ok().body("success");
     }
 
     @ResponseBody
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
+    public ResponseEntity<?> login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
         userService.login(loginRequestDto, response);
-        return "success";
+        return ResponseEntity.ok().body("success");
     }
 }

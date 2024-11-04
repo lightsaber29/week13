@@ -1,7 +1,7 @@
 package com.jungle.week13.board;
 
 import com.jungle.week13.board.dto.PostRequestDto;
-import com.jungle.week13.board.entity.Post;
+import com.jungle.week13.board.dto.PostResponseDto;
 import com.jungle.week13.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -20,18 +20,17 @@ public class BoardController {
     }
 
     @PostMapping("/board")
-    public Post createPost(@RequestBody PostRequestDto requestDto) {
+    public PostResponseDto createPost(@RequestBody PostRequestDto requestDto) {
         return boardService.createPost(requestDto);
     }
 
     @GetMapping("/board")
-    public List<Post> getPosts() {
+    public List<PostResponseDto> getPosts() {
         return boardService.getPosts();
     }
 
     @GetMapping("/board/{id}")
-    public Post getPost(@PathVariable Long id) {
-        System.out.println("BoardController getPost :: postId " + id);
+    public PostResponseDto getPost(@PathVariable Long id) {
         return boardService.getPost(id);
     }
 

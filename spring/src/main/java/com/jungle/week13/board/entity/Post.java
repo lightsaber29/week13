@@ -1,6 +1,7 @@
 package com.jungle.week13.board.entity;
 
 import com.jungle.week13.board.dto.PostRequestDto;
+import com.jungle.week13.board.dto.PostResponseDto;
 import com.jungle.week13.common.entity.Timestamped;
 import jakarta.persistence.*;
 import lombok.Getter;
