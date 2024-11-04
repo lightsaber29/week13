@@ -1,4 +1,4 @@
-package com.jungle.week13.entity;
+package com.jungle.week13.common.entity;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;

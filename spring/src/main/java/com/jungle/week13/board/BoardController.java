@@ -1,8 +1,8 @@
 package com.jungle.week13.board;
 
-import com.jungle.week13.dto.PostRequestDto;
-import com.jungle.week13.entity.Post;
-import com.jungle.week13.service.BoardService;
+import com.jungle.week13.board.dto.PostRequestDto;
+import com.jungle.week13.board.entity.Post;
+import com.jungle.week13.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

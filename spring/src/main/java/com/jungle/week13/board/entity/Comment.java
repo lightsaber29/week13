@@ -1,5 +1,6 @@
-package com.jungle.week13.entity;
+package com.jungle.week13.board.entity;
 
+import com.jungle.week13.common.entity.Timestamped;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Comment extends Timestamped{
+public class Comment extends Timestamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

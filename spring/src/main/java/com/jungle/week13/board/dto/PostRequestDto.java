@@ -1,4 +1,4 @@
-package com.jungle.week13.dto;
+package com.jungle.week13.board.dto;
 
 import lombok.Getter;
 

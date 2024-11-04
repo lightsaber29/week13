@@ -1,8 +1,8 @@
-package com.jungle.week13.service;
+package com.jungle.week13.board.service;
 
-import com.jungle.week13.dto.PostRequestDto;
-import com.jungle.week13.entity.Post;
-import com.jungle.week13.repository.BoardRepository;
+import com.jungle.week13.board.dto.PostRequestDto;
+import com.jungle.week13.board.entity.Post;
+import com.jungle.week13.board.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
