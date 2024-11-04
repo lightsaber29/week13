@@ -8,9 +8,13 @@ import com.jungle.week13.user.entity.UserRoleEnum;
 import com.jungle.week13.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -37,7 +41,8 @@ public class UserService {
         // 사용자 ROLE 확인
         UserRoleEnum role = UserRoleEnum.USER;
         if (signupRequestDto.isAdmin()) {
-            if (!signupRequestDto.getAdminToken().equals(ADMIN_TOKEN)) {
+            String adminToken = signupRequestDto.getAdminToken();
+            if (!ADMIN_TOKEN.equals(adminToken)) {
                 throw new IllegalArgumentException("관리자 암호가 틀려 등록이 불가능합니다.");
             }
             role = UserRoleEnum.ADMIN;
@@ -48,7 +53,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public void login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
+    public ResponseEntity<?> login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
         String username = loginRequestDto.getUsername();
         String password = loginRequestDto.getPassword();
 
@@ -58,10 +63,20 @@ public class UserService {
         );
 
         // 비밀번호 확인
-        if(!user.getPassword().equals(password)){
+        String loginPassword = user.getPassword();
+        if (!StringUtils.equals(password, loginPassword)){
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
-        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));
+        String loginUsername = user.getUsername();
+        UserRoleEnum loginRole = user.getRole();
+        String token = jwtUtil.createToken(loginUsername, loginRole);
+        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, token);
+
+        Map<String, String> result = new HashMap<>();
+        result.put("username", loginUsername);
+        result.put("role", loginRole.toString());
+
+        return ResponseEntity.ok(result);
     }
 }
